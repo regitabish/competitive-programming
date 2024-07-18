@@ -1,5 +1,5 @@
 
-#include <atcoder/scc>;
+#include <atcoder/scc>
 using namespace atcoder;
 
 int main() {
