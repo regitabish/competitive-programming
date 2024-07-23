@@ -5,8 +5,7 @@ using namespace std;
 int main() {
 
     int n,k;    cin >> n >> k;
-    vector<int> v;
-    deque<int> dq;
+    vector<long long> v(n);
 
     for(int i=0;i<n;i++){
         cin >> v.at(i);
@@ -14,10 +13,12 @@ int main() {
 
     sort(v.begin(),v.end());
 
-    for(int i : v ){
-        dq.push_back(i);
+    long long ans ;
+    ans = 2e9;
+
+    for(int i=0;i<=k;i++){
+        ans = min(ans,v.at(i+(n-k)-1)-v.at(i));
     }
 
-    
-
+    cout << ans << endl;
 }
