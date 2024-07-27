@@ -32,17 +32,14 @@ int main() {
     sort(leftMoving.begin(), leftMoving.end());
 
     long long count = 0;
-    int j = 0;
-
+    int l = 0;
+    int r = 0;
     // 尺取り法でのすれ違いのカウント
     for (int i = 0; i < rightMoving.size(); ++i) {
         
-        while (j < leftMoving.size() && rightMoving[i] + 2*T >= leftMoving[j]) {
-            cout << i << " " << j << endl;
-            j++;
-        }
-        
-        count += j;
+        while(l<leftMoving.size() && leftMoving[l] < rightMoving[i])l++;
+        while(r<leftMoving.size() && leftMoving[r] <= rightMoving[i] + 2*T)r++;
+        count += r-l;
     }
 
     cout << count << endl;
