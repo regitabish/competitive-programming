@@ -33,7 +33,7 @@ int main(){
     for(int i=0;i<n;i++){
         const auto &divs = enum_divisors(a[i]);
         for(auto div : divs){
-            ans+=mp[div] * mp[a[i]/div];
+            ans+=mp[div]  mp[a[i]/div];
         }
     }
 
