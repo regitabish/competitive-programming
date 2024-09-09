@@ -18,32 +18,39 @@ int main() {
 
     sort(a.begin(),a.end());
 
+    vector<int> ans(q,-1);
+
     for(int i=0;i<q;i++){
         int b;  cin >> b;
         int k;  cin >> k;
-        long long dl,dr,dkey;
-        dl = 0;
-        dr = 10e9;
-        dkey = (dl+dr)/2;
-        long long l,r;//左右それぞれの添え字
 
-        while(1){
-            l = upper_bound(a.begin(),a.end(),b-dkey) - a.begin();
-            r = lower_bound(a.begin(),a.end(),b-dkey) - a.begin();
-            //cout << l << " " << r << endl;
-            if(r==l)break;
-            if(r-l<k){
-                //dが大きすぎる
-                dkey=dr;
+        auto isTherePointsThanKInD = [&](int d)->bool{
+            //ある距離dを与えて区間[b-d,b-d]にaの点がK個以上あるかを判定するlambda式
+            
+            auto r=upper_bound(a.begin(),a.end(),b+d);
+            auto l=lower_bound(a.begin(),a.end(),b-d);
+            return r-l>=k;
+        };
+
+        //ここ以下で二分探索で距離dを求める
+        long long ok,ng;
+        ok=0;
+        ng=10e8;
+        while(abs(ok-ng)>1){
+            int dist;
+            dist=(ok+ng)/2;
+            if(isTherePointsThanKInD(dist)){
+                //pointがK個以上あるので距離dは大きい。
+                ng=dist;
             }else{
-                //dが小さい
-                dkey=dl;
+                ok=dist;
             }
         }
 
-        cout << max(abs(a.at(r)-b),abs(b-a.at(l))) <<endl;
-        
+        ans.at(i)=ok;
     }
 
+    for(int i=0;i<q;i++)cout << ans.at(i) << endl;
+    return 0;
 
 }
